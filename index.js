@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const githubAccessTokenController = require('./controllers/github-access-token')
 const githubUserController = require('./controllers/github-user')
 const githubRepositoryController = require('./controllers/github-repository')
