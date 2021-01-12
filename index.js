@@ -7,7 +7,7 @@ const githubPullRequestController = require('./controllers/github-pullrequest')
 
 const express = require('express')
 const app = express()
-const port = 3001
+const port = 3000
 
 app.use(express.json())
 
