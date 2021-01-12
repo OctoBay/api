@@ -8,10 +8,12 @@ const githubIssueByIdController = require('./controllers/github-issue-by-id')
 const githubPullRequestController = require('./controllers/github-pullrequest')
 
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const port = 3000
 
 app.use(express.json())
+app.use(cors())
 
 app.post('/github-access-token', githubAccessTokenController)
 app.get('/github-user/:username', githubUserController)
