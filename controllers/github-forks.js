@@ -31,14 +31,20 @@ module.exports = (req, res) => {
     .then(data =>{
       const forks = []
       if (data.data.data.repository) {
-        data.data.data.repository.forks.nodes.forEach(fork => {
-          forks.push({
-            username: fork.owner.login,
-            repository: fork.name,
-            logo: fork.owner.avatarUrl
-          })
+        const requests = []
+        data.data.data.repository.forks.nodes.forEach(async fork => {
+          requests.push(axios.get(`https://${fork.owner.login}.github.io/octobay`).then(res => {
+            return {
+              username: fork.owner.login,
+              repository: fork.name,
+              logo: fork.owner.avatarUrl
+            }
+          }).catch(e => null))
         })
-        res.json(forks)
+        Promise.all(requests).then(forks => {
+          forks = forks.filter(fork => fork)
+          res.json(forks)
+        })
       } else {
         res.status(500).json({ error: 'Repository not found.'})
       }
