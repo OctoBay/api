@@ -15,6 +15,7 @@ module.exports = (req, res) => {
                         name
                         owner {
                           login
+                          avatarUrl
                         }
                       }
                     }
@@ -33,7 +34,8 @@ module.exports = (req, res) => {
         data.data.data.repository.forks.nodes.forEach(fork => {
           forks.push({
             username: fork.owner.login,
-            repository: fork.name
+            repository: fork.name,
+            logo: fork.owner.avatarUrl
           })
         })
         res.json(forks)
