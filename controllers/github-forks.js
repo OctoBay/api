@@ -14,6 +14,7 @@ module.exports = (req, res) => {
                       nodes {
                         name
                         description
+                        stargazerCount
                         owner {
                           login
                           avatarUrl
@@ -39,7 +40,8 @@ module.exports = (req, res) => {
               username: fork.owner.login,
               repository: fork.name,
               logo: fork.owner.avatarUrl,
-              description: fork.description
+              description: fork.description,
+              stars: fork.stargazerCount
             }
           }).catch(e => null))
         })
