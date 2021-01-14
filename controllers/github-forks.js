@@ -13,6 +13,7 @@ module.exports = (req, res) => {
                     forks(first: 10) {
                       nodes {
                         name
+                        description
                         owner {
                           login
                           avatarUrl
@@ -37,7 +38,8 @@ module.exports = (req, res) => {
             return {
               username: fork.owner.login,
               repository: fork.name,
-              logo: fork.owner.avatarUrl
+              logo: fork.owner.avatarUrl,
+              description: fork.description
             }
           }).catch(e => null))
         })
