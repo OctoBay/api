@@ -35,7 +35,7 @@ module.exports = (req, res) => {
       if (data.data.data.repository) {
         const requests = []
         data.data.data.repository.forks.nodes.forEach(async fork => {
-          requests.push(axios.get(`https://${fork.owner.login}.github.io/octobay`).then(res => {
+          requests.push(axios.get(`https://${fork.owner.login}.github.io/${fork.name}`).then(res => {
             return {
               username: fork.owner.login,
               repository: fork.name,
