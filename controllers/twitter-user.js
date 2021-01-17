@@ -14,15 +14,15 @@ const twApp = new Twitter({
 module.exports = (req, res) => {
   let accountId = req.params.accountId
 
-  const followers = cache.get('twitter-followers-' + accountId)
-  if (followers) {
-    res.json(followers)
+  const user = cache.get('twitter-user-' + accountId)
+  if (user) {
+    res.json(user)
   } else {
     twApp.get('users/show', {
       user_id: accountId
     }).then(user => {
-      cache.put('twitter-followers-' + accountId, user.followers_count, 5 * 60 * 1000)
-      res.json(user.followers_count)
+      cache.put('twitter-followers-' + accountId, user, 5 * 60 * 1000)
+      res.json(user)
     }).catch(error => {
       res.status(500).json(error)
     })
