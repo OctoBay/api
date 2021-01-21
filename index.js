@@ -7,6 +7,7 @@ const githubIssueController = require('./controllers/github-issue')
 const githubIssueByIdController = require('./controllers/github-issue-by-id')
 const githubPullRequestController = require('./controllers/github-pullrequest')
 const githubForksController = require('./controllers/github-forks')
+const githubIsRepoAdminController = require('./controllers/github-is-repo-admin')
 const twitterUserController = require('./controllers/twitter-user')
 
 const express = require('express')
@@ -24,6 +25,7 @@ app.get('/github-issue/:owner/:repo/:number', githubIssueController)
 app.get('/github-issue-by-id/:issueId', githubIssueByIdController)
 app.get('/github-pullrequest/:owner/:repo/:number', githubPullRequestController)
 app.get('/github-forks/:owner/:repo', githubForksController)
+app.get('/github-is-repo-admin/:user/:repoOwner/:repoName', githubIsRepoAdminController)
 app.get('/twitter-user/:accountId', twitterUserController)
 
 app.listen(port, () => {
