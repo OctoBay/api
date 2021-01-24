@@ -16,6 +16,7 @@ app.get('/github/issue-by-id/:issueId', require('./controllers/github/issue-by-i
 app.get('/github/pullrequest/:owner/:repo/:number', require('./controllers/github/pullrequest'))
 app.get('/github/forks/:owner/:repo', require('./controllers/github/forks'))
 app.get('/github/is-repo-admin/:user/:repoOwner/:repoName', require('./controllers/github/is-repo-admin'))
+app.get('/github/linked-pullrequests/:issueId', require('./controllers/github/linked-pullrequests'))
 app.get('/twitter/user/:accountId', require('./controllers/twitter/user'))
 
 app.listen(port, () => {
