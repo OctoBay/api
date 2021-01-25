@@ -16,6 +16,7 @@ module.exports = (req, res) => {
     node(id:"${prId}") {
       ... on PullRequest {
         id
+        url
         number
         author {
           ... on User {

@@ -12,6 +12,7 @@ module.exports = (req, res) => {
   repository(owner: "${owner}", name:"${repo}") {
     pullRequest(number: ${number}) {
       id
+      url
       number
       author {
         ... on User {
