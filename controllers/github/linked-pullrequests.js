@@ -9,7 +9,7 @@ const getPullRequestConnectEvents = (issueId, after, items = []) => {
         query: `query {
           node(id:"${issueId}") {
             ... on Issue {
-              timelineItems(itemTypes: [CONNECTED_EVENT, DISCONNECTED_EVENT], first: 1${after ? ', after: "' + after + '"' : ''}) {
+              timelineItems(itemTypes: [CONNECTED_EVENT, DISCONNECTED_EVENT, CROSS_REFERENCED_EVENT], first: 50${after ? ', after: "' + after + '"' : ''}) {
                 pageInfo {
                   hasNextPage
                   endCursor
@@ -24,6 +24,14 @@ const getPullRequestConnectEvents = (issueId, after, items = []) => {
                   }
                   ... on DisconnectedEvent {
                     subject {
+                      ... on PullRequest {
+                        id
+                      }
+                    }
+                  }
+                  ... on CrossReferencedEvent {
+                    willCloseTarget
+                    source {
                       ... on PullRequest {
                         id
                       }
@@ -56,13 +64,16 @@ module.exports = (req, res) => {
   getPullRequestConnectEvents(issueId).then(connectionEvents => {
     let linkedPullRequests = []
     connectionEvents.forEach(connectionEvent => {
-      if (linkedPullRequests.includes(connectionEvent.subject.id)) {
-        linkedPullRequests = linkedPullRequests.filter(id => id != connectionEvent.subject.id)
-      } else {
-        linkedPullRequests.push(connectionEvent.subject.id)
+      if (connectionEvent.subject) {
+        if (linkedPullRequests.includes(connectionEvent.subject.id)) {
+          linkedPullRequests = linkedPullRequests.filter(id => id != connectionEvent.subject.id)
+        } else {
+          linkedPullRequests.push(connectionEvent.subject.id)
+        }
+      } else if (connectionEvent.source && connectionEvent.willCloseTarget) {
+        linkedPullRequests.push(connectionEvent.source.id)
       }
     })
-    console.log(linkedPullRequests)
     res.json(linkedPullRequests)
   }).catch(e => {
     console.log(e)
