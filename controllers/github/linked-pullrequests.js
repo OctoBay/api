@@ -1,4 +1,5 @@
 const axios = require('axios')
+const cache = require('memory-cache')
 const { graphqlClient } = require('./graphql-client')
 
 const getPullRequestConnectEvents = (issueId, after, items = []) => {
@@ -60,23 +61,29 @@ const getPullRequestConnectEvents = (issueId, after, items = []) => {
 }
 
 module.exports = (req, res) => {
-  let issueId = req.params.issueId
-  getPullRequestConnectEvents(issueId).then(connectionEvents => {
-    let linkedPullRequests = []
-    connectionEvents.forEach(connectionEvent => {
-      if (connectionEvent.subject) {
-        if (linkedPullRequests.includes(connectionEvent.subject.id)) {
-          linkedPullRequests = linkedPullRequests.filter(id => id != connectionEvent.subject.id)
-        } else {
-          linkedPullRequests.push(connectionEvent.subject.id)
-        }
-      } else if (connectionEvent.source && connectionEvent.willCloseTarget) {
-        linkedPullRequests.push(connectionEvent.source.id)
-      }
-    })
+  const issueId = req.params.issueId
+  const cacheKey = 'github-linked-pullrequests-' + issueId
+  let linkedPullRequests = cache.get(cacheKey) || []
+  if (linkedPullRequests.length) {
     res.json(linkedPullRequests)
-  }).catch(e => {
-    console.log(e)
-    res.json({ error: e })
-  })
+  } else {
+    getPullRequestConnectEvents(issueId).then(connectionEvents => {
+      connectionEvents.forEach(connectionEvent => {
+        if (connectionEvent.subject) {
+          if (linkedPullRequests.includes(connectionEvent.subject.id)) {
+            linkedPullRequests = linkedPullRequests.filter(id => id != connectionEvent.subject.id)
+          } else {
+            linkedPullRequests.push(connectionEvent.subject.id)
+          }
+        } else if (connectionEvent.source && connectionEvent.willCloseTarget) {
+          linkedPullRequests.push(connectionEvent.source.id)
+        }
+      })
+      cache.put(cacheKey, linkedPullRequests, 5 * 60 * 1000)
+      res.json(linkedPullRequests)
+    }).catch(e => {
+      console.log(e)
+      res.json({ error: e })
+    })
+  }
 }
