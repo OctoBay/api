@@ -10,11 +10,15 @@ module.exports = (req, res) => {
       'https://api.thegraph.com/subgraphs/name/octobay/octobay',
       {
         query: `{
-    issues(first: 10) {
-      id
-      deposits
-    }
-  }`
+          issues(first: 10) {
+            id
+            deposits {
+              id
+              amount
+              from
+            }
+          }
+        }`
       }
     ).then(response => {
       cache.put('graph-issues', response.data.data.issues, 5 * 60 * 1000)
