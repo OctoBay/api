@@ -22,7 +22,7 @@ module.exports = (req, res) => {
       }
     ).then(response => {
       cache.put('graph-issues', response.data.data.issues, 5 * 60 * 1000)
-      res.json(response.data.issues)
+      res.json(response.data.data.issues)
     }).catch((e) => {
       res.status(500, JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })
