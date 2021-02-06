@@ -19,7 +19,10 @@ app.get('/github/forks/:owner/:repo', require('./controllers/github/forks'))
 app.get('/github/is-repo-admin/:user/:repoOwner/:repoName', require('./controllers/github/is-repo-admin'))
 app.get('/github/linked-pullrequests/:issueId', require('./controllers/github/linked-pullrequests'))
 app.get('/github/can-withdraw-from-issue/:githubUser/:issueId', require('./controllers/github/can-withdraw-from-issue'))
+
 app.get('/twitter/user/:accountId', require('./controllers/twitter/user'))
+
+app.get('/graph/issues', require('./controllers/graph/issues'))
 
 app.listen(port, () => {
   console.log(`OctoBay API listening at http://localhost:${port}`)
