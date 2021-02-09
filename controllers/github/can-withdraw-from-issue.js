@@ -48,7 +48,9 @@ const getIssueClosedEvents = (issueId, after, result = { closedEvents: [], body:
     } else {
       return result
     }
-  }).catch(e => console.log(e))
+  }).catch(e => {
+    res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
+  })
 }
 
 module.exports = (req, res) => {

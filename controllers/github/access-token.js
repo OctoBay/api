@@ -13,5 +13,7 @@ module.exports = (req, res) => {
       const urlParams = new URLSearchParams(response.data)
       const accessToken = urlParams.get('access_token')
       res.json({ accessToken })
+    }).catch(e => {
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })
 }

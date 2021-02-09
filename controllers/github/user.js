@@ -6,23 +6,26 @@ module.exports = (req, res) => {
     .post(
       "https://api.github.com/graphql",
       {
-        query: `query {
-                  user(login: "${username}") {
-                    id
-                    createdAt
-                    updatedAt
-                    login
-                    url
-                    avatarUrl
-                    location
-                    name
-                    websiteUrl
-                    twitterUsername
-                    email
-                    hasSponsorsListing
-                    isHireable
-                  }
-                }`
+        query: `query($username:String!) {
+          user(login: $username) {
+            id
+            createdAt
+            updatedAt
+            login
+            url
+            avatarUrl
+            location
+            name
+            websiteUrl
+            twitterUsername
+            email
+            hasSponsorsListing
+            isHireable
+          }
+        }`,
+        variables: {
+          username: username
+        }
       },
       {
         headers: {
@@ -31,6 +34,12 @@ module.exports = (req, res) => {
       }
     )
     .then(data => {
-      res.json(data.data.data.user)
+      if (data.data.errors) {
+        res.status(404).json(data.data.errors)
+      } else {
+        res.json(data.data.data.user)
+      }
+    }).catch(e => {
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })
 }

@@ -57,7 +57,7 @@ const getPullRequestConnectEvents = (issueId, after, items = []) => {
       } else {
         return items
       }
-    }).catch(e => console.log(e))
+    }).catch(e => e)
 }
 
 module.exports = (req, res) => {
@@ -82,8 +82,7 @@ module.exports = (req, res) => {
       cache.put(cacheKey, linkedPullRequests, 5 * 60 * 1000)
       res.json(linkedPullRequests)
     }).catch(e => {
-      console.log(e)
-      res.json({ error: e })
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })
   }
 }

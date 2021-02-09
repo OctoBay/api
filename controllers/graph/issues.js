@@ -24,7 +24,7 @@ module.exports = (req, res) => {
       cache.put('graph-issues', response.data.data.issues, 5 * 60 * 1000)
       res.json(response.data.data.issues)
     }).catch((e) => {
-      res.status(500, JSON.stringify(e, Object.getOwnPropertyNames(e)))
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })
   }
 }

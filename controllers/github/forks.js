@@ -30,7 +30,7 @@ module.exports = (req, res) => {
         }
       }
     )
-    .then(data =>{
+    .then(data => {
       const forks = []
       if (data.data.data.repository) {
         const requests = []
@@ -52,7 +52,7 @@ module.exports = (req, res) => {
       } else {
         res.status(500).json({ error: 'Repository not found.'})
       }
-    }).catch(error => {
-      res.status(500).json({ error})
+    }).catch(e => {
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })
 }

@@ -35,10 +35,16 @@ module.exports = (req, res) => {
         }
       )
       .then(data => {
-        isAdmin = !!data.data.data.repository && data.data.data.repository.collaborators.edges[0].permission.toLowerCase() === 'admin'
-        cache.put(cacheKey, isAdmin, 5 * 60 * 1000)
-        res.json(isAdmin)
-      }).catch(e => res.json({ error: 'asd' }))
+        if (data.data.errors) {
+          res.status(404).json(data.data.errors)
+        } else {
+          isAdmin = !!data.data.data.repository && data.data.data.repository.collaborators.edges[0].permission.toLowerCase() === 'admin'
+          cache.put(cacheKey, isAdmin, 5 * 60 * 1000)
+          res.json(isAdmin)
+        }
+      }).catch(e => {
+        res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
+      })
   } else {
     res.json(isAdmin)
   }
