@@ -7,6 +7,19 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+const userAuth = (req, res, next) => {
+  if (req.headers.authorization && req.headers.authorization.startsWith('bearer')) {
+    next()
+  } else {
+    res.status(401).send('Unauthorized: No access token provided.')
+  }
+}
+
+const appAuth = (req, res, next) => {
+  req.headers.authorization = 'bearer ' + process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+  next()
+}
+
 app.post('/github/access-token', require('./controllers/github/access-token'))
 app.get('/github/user/:username', require('./controllers/github/user'))
 app.get('/github/repository/:owner/:repo', require('./controllers/github/repository'))
@@ -14,8 +27,8 @@ app.get('/github/issue/:owner/:repo/:number', require('./controllers/github/issu
 app.get('/github/issue-by-id/:issueId', require('./controllers/github/issue-by-id'))
 app.get('/github/pullrequest/:owner/:repo/:number', require('./controllers/github/pullrequest'))
 app.get('/github/pullrequest-by-id/:prId', require('./controllers/github/pullrequest-by-id'))
-app.get('/github/forks/:owner/:repo', require('./controllers/github/forks'))
-app.get('/github/is-repo-admin/:user/:repoOwner/:repoName', require('./controllers/github/is-repo-admin'))
+app.get('/github/forks/:owner/:repo', appAuth, require('./controllers/github/forks'))
+app.get('/github/is-repo-admin/:user/:repoOwner/:repoName', userAuth, require('./controllers/github/is-repo-admin'))
 app.get('/github/linked-pullrequests/:issueId', require('./controllers/github/linked-pullrequests'))
 app.get('/github/can-withdraw-from-issue/:githubUser/:issueId', require('./controllers/github/can-withdraw-from-issue'))
 

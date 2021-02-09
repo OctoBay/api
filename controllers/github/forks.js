@@ -26,7 +26,7 @@ module.exports = (req, res) => {
       },
       {
         headers: {
-          Authorization: "bearer " + process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+          Authorization: req.headers.authorization
         }
       }
     )

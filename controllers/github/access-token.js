@@ -10,9 +10,12 @@ module.exports = (req, res) => {
       accept: 'application/json'
     })
     .then(response => {
-      const urlParams = new URLSearchParams(response.data)
-      const accessToken = urlParams.get('access_token')
-      res.json({ accessToken })
+      const data = new URLSearchParams(response.data)
+      if (data.get('error')) {
+        res.status(500).send(`${data.get('error')}: ${data.get('error_description')}`)
+      } else {
+        res.json({ accessToken: data.get('access_token') })
+      }
     }).catch(e => {
       res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })

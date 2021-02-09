@@ -6,10 +6,11 @@ module.exports = (req, res) => {
   const repoOwner = req.params.repoOwner
   const repoName = req.params.repoName
   const cacheKey = `github-is-repo-admin-${user}-${repoOwner}-${repoName}`
+  const cacheExpire = 1 * 60 * 1000
 
   let isAdmin = cache.get(cacheKey)
   // lookup/refresh only if not set (expired) or true
-  // "NOT admin" is a state that can be cached, "IS admin" should not
+  // "NOT admin" is a state that can be cached, "IS admin" should not be cached
   if (isAdmin !== false) {
     axios
       .post(
@@ -30,7 +31,7 @@ module.exports = (req, res) => {
         },
         {
           headers: {
-            Authorization: "bearer " + process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+            Authorization: req.headers.authorization
           }
         }
       )
@@ -39,7 +40,7 @@ module.exports = (req, res) => {
           res.status(404).json(data.data.errors)
         } else {
           isAdmin = !!data.data.data.repository && data.data.data.repository.collaborators.edges[0].permission.toLowerCase() === 'admin'
-          cache.put(cacheKey, isAdmin, 5 * 60 * 1000)
+          cache.put(cacheKey, isAdmin, cacheExpire)
           res.json(isAdmin)
         }
       }).catch(e => {
