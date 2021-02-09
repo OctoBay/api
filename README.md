@@ -25,6 +25,30 @@
 
 </details>
 
+<details>
+  <summary>User</summary>
+
+  ### Get GitHub.
+
+  Get a user by username.
+
+  ```http
+  GET /github/user/:username
+  ```
+  #### Parameters
+  |Parameter|Default|Description|
+  |-|-|-|
+  |`username`|`null`|A GitHub username.|
+
+  #### Response
+  |Code|Type|Description|
+  |-|-|-|
+  |200|`Object`|The GitHub user's account data.|
+  |404|`Object`|User not found.|
+  |500|`Object`|GitHub error.|
+
+</details>
+
 ## The Graph
 
 <details>
