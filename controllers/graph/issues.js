@@ -22,12 +22,12 @@ module.exports = (req, res) => {
           }
         }`
       }
-    ).then(response => {
+    ).then(data => {
       if (data.data.errors) {
         res.status(404).json(data.data.errors)
       } else {
-        cache.put(cacheKey, response.data.data.issues, cacheExpire)
-        res.json(response.data.data.issues)
+        cache.put(cacheKey, data.data.data.issues, cacheExpire)
+        res.json(data.data.data.issues)
       }
     }).catch((e) => {
       res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
