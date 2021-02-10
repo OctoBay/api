@@ -35,5 +35,7 @@ app.get('/github/can-withdraw-from-issue/:githubUser/:issueId', require('./contr
 app.get('/twitter/user/:accountId', require('./controllers/twitter/user'))
 
 app.get('/graph/issues', require('./controllers/graph/issues'))
+app.get('/graph/oracles', require('./controllers/graph/oracles'))
+app.get('/graph/users', require('./controllers/graph/users'))
 
 module.exports = app
