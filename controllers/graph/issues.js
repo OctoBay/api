@@ -2,7 +2,9 @@ const axios = require('axios')
 const cache = require('memory-cache')
 
 module.exports = (req, res) => {
-  const issues = cache.get('graph-issues')
+  const cacheKey = 'graph-issues'
+  const cacheExpire = 5 * 60 * 1000
+  const issues = cache.get(cacheKey)
   if (issues) {
     res.json(issues)
   } else {
@@ -21,8 +23,12 @@ module.exports = (req, res) => {
         }`
       }
     ).then(response => {
-      cache.put('graph-issues', response.data.data.issues, 5 * 60 * 1000)
-      res.json(response.data.data.issues)
+      if (data.data.errors) {
+        res.status(404).json(data.data.errors)
+      } else {
+        cache.put(cacheKey, response.data.data.issues, cacheExpire)
+        res.json(response.data.data.issues)
+      }
     }).catch((e) => {
       res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
     })
