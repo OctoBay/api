@@ -17,6 +17,7 @@ module.exports = (req, res) => {
             name
             jobs {
               id
+              name
               fee
             }
           }
