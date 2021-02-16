@@ -34,6 +34,9 @@ module.exports = (req, res) => {
         mergedAt
         createdAt
         changedFiles
+	autoMergeRequest {
+          mergeMethod
+	}
         reviews {
           totalCount
         }
