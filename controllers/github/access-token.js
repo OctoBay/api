@@ -1,9 +1,9 @@
-const { userAccessToken } = require('@octobay/adapters')
+const { githubAccessToken } = require('@octobay/adapters')
 
 module.exports = (req, res) => {
   let code = req.body.code
 
-  userAccessToken(code).then(result => {
+  githubAccessToken(code).then(result => {
     if (result.error) {
       res.status(500).send(result.error)
     } else {
