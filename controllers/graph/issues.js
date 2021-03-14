@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     res.json(issues)
   } else {
     axios.post(
-      'https://api.thegraph.com/subgraphs/name/octobay/octobay',
+      process.env.THEGRAPH_ENDPOINT,
       {
         query: `{
           issues(first: 10) {
