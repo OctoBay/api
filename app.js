@@ -36,6 +36,6 @@ app.get('/twitter/user/:accountId', require('./controllers/twitter/user'))
 
 app.get('/graph/issues', require('./controllers/graph/issues'))
 app.get('/graph/oracles', require('./controllers/graph/oracles'))
-app.get('/graph/users', require('./controllers/graph/users'))
+app.get('/graph/user/:githubUserId', require('./controllers/graph/user'))
 
 module.exports = app

@@ -9,12 +9,13 @@ module.exports = (req, res) => {
     res.json(oracles)
   } else {
     axios.post(
-      'https://api.thegraph.com/subgraphs/name/octobay/octobay',
+      process.env.THEGRAPH_ENDPOINT,
       {
         query: `{
           oracles(first: 10) {
             id
             name
+            ethAddress
             jobs {
               id
               name
