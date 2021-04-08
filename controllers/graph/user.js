@@ -1,5 +1,4 @@
 const axios = require('axios')
-const cache = require('memory-cache')
 
 module.exports = (req, res) => {
   const githubUserId = req.params.githubUserId
