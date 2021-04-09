@@ -26,6 +26,7 @@ app.get('/github/repository/:owner/:repo', require('./controllers/github/reposit
 app.get('/github/organization/:name', require('./controllers/github/organization'))
 app.get('/github/issue/:owner/:repo/:number', require('./controllers/github/issue'))
 app.get('/github/issue-by-id/:issueId', require('./controllers/github/issue-by-id'))
+app.get('/github/discussion/:owner/:repo/:number', require('./controllers/github/discussion'))
 app.get('/github/pullrequest/:owner/:repo/:number', require('./controllers/github/pullrequest'))
 app.get('/github/pullrequest-by-id/:prId', require('./controllers/github/pullrequest-by-id'))
 app.get('/github/forks/:owner/:repo', appAuth, require('./controllers/github/forks'))
