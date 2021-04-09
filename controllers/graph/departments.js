@@ -27,7 +27,6 @@ module.exports = (req, res) => {
           proposals {
             id
             quorum
-            discussionId
             startDate
             endDate
             votes {
@@ -48,7 +47,7 @@ module.exports = (req, res) => {
     if (data.data.errors) {
       res.status(404).json(data.data.errors)
     } else {
-      res.json(data.data.data.departments)
+      res.json(data.data.data.governanceDepartments)
     }
   }).catch((e) => {
     res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
