@@ -31,6 +31,10 @@ module.exports = (req, res) => {
             startDate
             endDate
             balanceSnapshotId
+            department {
+              tokenAddress
+              projectId
+            }
             votes {
               id
               holder {
