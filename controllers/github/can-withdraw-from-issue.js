@@ -1,11 +1,11 @@
-const { claimAdapter } = require('@octobay/adapters')
+const { bountyIsReleased } = require('@octobay/adapters')
 
 module.exports = (req, res) => {
-  let githubUser = req.params.githubUser
+  let githubUserId = req.params.githubUserId
   let issueId = req.params.issueId
 
-  claimAdapter(githubUser, issueId).then(result => {
-    if (releasedByCommand || releasedByPullRequest) {
+  bountyIsReleased(githubUserId, issueId).then(result => {
+    if (result.releasedByCommand || result.releasedByPullRequest) {
       res.json(true)
     } else {
       res.json(false)

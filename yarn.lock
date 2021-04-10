@@ -465,10 +465,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@octobay/adapters@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@octobay/adapters/-/adapters-0.0.4.tgz#5b831f69488bda525f859ad1c2b1f2a9555fbe09"
-  integrity sha512-QsOnNLZZHyEUMdksuroyGcCrQ3+W88URiVWQp6cj6f2dTH0DU+hLuj0ilWjVr/LHKSnEcqLj1udwKzd1G8I47Q==
+"@octobay/adapters@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@octobay/adapters/-/adapters-0.0.10.tgz#97f32b0fc934588b38d6b92468cbba7336e0c5f4"
+  integrity sha512-RxX26DkBmNqFIsm2g121+OO7SQK06zjGhxSn00otU7Js2eGRKS0ktrGXvS5F8nM3uuZ8dy9f9od5myOj6kUGpQ==
   dependencies:
     axios "^0.21.1"
     axios-retry "^3.1.9"
