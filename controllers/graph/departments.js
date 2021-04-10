@@ -33,7 +33,6 @@ module.exports = (req, res) => {
               id
               holder {
                 id
-                githubUserId
                 ethAddress
                 balance
               }
