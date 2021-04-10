@@ -26,6 +26,7 @@ module.exports = (req, res) => {
           }
           proposals {
             id
+            count
             quorum
             startDate
             endDate
