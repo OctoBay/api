@@ -16,7 +16,7 @@
     ]
   },
   "dependencies": {
-    "@octobay/adapters": "^0.0.10",
+    "@octobay/adapters": "^0.0.11",
     "@octokit/auth": "^3.0.1",
     "@octokit/graphql": "^4.5.8",
     "axios": "^0.21.1",
