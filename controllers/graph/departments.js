@@ -29,6 +29,7 @@ module.exports = (req, res) => {
             quorum
             startDate
             endDate
+            balanceSnapshotId
             votes {
               id
               holder {
