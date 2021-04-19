@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     if (result.error) {
       res.status(500).send(result.error)
     } else {
-      res.json({ accessToken: result.accessToken })
+      res.json({ accessToken: result })
     }
   }).catch(e => {
     res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
