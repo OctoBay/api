@@ -7,6 +7,7 @@ module.exports = (req, res) => {
       query: `{
         issues(first: 10) {
           id
+          status
           deposits {
             id
             amount
