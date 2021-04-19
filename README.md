@@ -3,11 +3,22 @@
 ## GitHub
 
 <details>
-  <summary>Access Token</summary>
+  <summary>GitHub Personal Access Token</summary>
+  ### Get a GitHub Personal Access Token
+  
+  [Follow these instructions](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) to get your GitHub Personal Access Token.
+
+  Create the token with the following permissions:
+  - public_repo
+  - user:email
+
+  Put this personal access token in the .env file for the `GITHUB_PERSONAL_ACCESS_TOKEN` variable.
+
+  <summary>Authorization Access Token</summary>
 
   ### Get an access token for a GitHub user.
 
-  The auth code from `https://github.com/login/oauth/authorize)` can be exchanged for an access token here.
+  The auth code from `https://github.com/login/oauth/authorize` can be exchanged for an access token here.
 
   ```http
   POST /github/access-token
