@@ -6,15 +6,16 @@ module.exports = (req, res) => {
     .post(
       "https://api.github.com/graphql",
       {
-        query: `query {
-          node(id:"${discussionId}") {
+        query: `query($discussionId: ID!) {
+          node(id: $discussionId) {
             ... on Discussion {
               id
               title
               url
             }
           }
-        }`
+        }`,
+        variables: { discussionId }
       },
       {
         headers: {
