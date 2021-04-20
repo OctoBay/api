@@ -1,7 +1,7 @@
-const axios = require('axios')
+const axios = require('axios');
 
 module.exports = (req, res) => {
-  let username = req.params.username
+  let username = req.params.username;
   axios
     .post(
       "https://api.github.com/graphql",
@@ -24,7 +24,7 @@ module.exports = (req, res) => {
           }
         }`,
         variables: {
-          username: username
+          username
         }
       },
       {
@@ -35,11 +35,11 @@ module.exports = (req, res) => {
     )
     .then(data => {
       if (data.data.errors) {
-        res.status(404).json(data.data.errors)
+        res.status(404).json(data.data.errors);
       } else {
-        res.json(data.data.data.user)
+        res.json(data.data.data.user);
       }
     }).catch(e => {
-      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
-    })
-}
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)));
+    });
+};

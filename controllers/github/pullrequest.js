@@ -9,53 +9,54 @@ module.exports = (req, res) => {
       "https://api.github.com/graphql",
       {
         query: `query($owner: String!, $repo: String!, $number: Int!) {
-  repository(owner: $owner, name:$repo) {
-    pullRequest(number: $number) {
-      id
-      url
-      number
-      author {
-        ... on User {
-          login
-          url
-          createdAt
-          followers {
-            totalCount
+          repository(owner: $owner, name:$repo) {
+            pullRequest(number: $number) {
+              id
+              url
+              number
+              author {
+                ... on User {
+                  login
+                  url
+                  createdAt
+                  followers {
+                    totalCount
+                  }
+                }
+              }
+              title
+              state
+              merged
+              mergedAt
+              createdAt
+              changedFiles
+              autoMergeRequest {
+                mergeMethod
+              }
+              reviews {
+                totalCount
+              }
+              commits {
+                totalCount
+              }
+              comments {
+                totalCount
+              }
+              repository {
+                owner {
+                  login
+                }
+                createdAt
+                forkCount
+                viewerCanAdminister
+                stargazers {
+                  totalCount
+                }
+              }
+            }
           }
-        }
-      }
-      title
-      state
-      merged
-      mergedAt
-      createdAt
-      changedFiles
-      autoMergeRequest {
-        mergeMethod
-      }
-      reviews {
-        totalCount
-      }
-      commits {
-        totalCount
-      }
-      comments {
-        totalCount
-      }
-      repository {
-        owner {
-          login
-        }
-        createdAt
-        forkCount
-        viewerCanAdminister
-        stargazers {
-          totalCount
-        }
-      }
-    }
-  }
-}`, variables: { owner, repo, number }
+        }`,
+        variables: { owner, repo, number }
       },
       {
         headers: {

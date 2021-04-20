@@ -8,21 +8,21 @@ module.exports = (req, res) => {
       "https://api.github.com/graphql",
       {
         query: `query($owner: String!, $repo: String!) {
-                  repository(owner: $owner, name: $repo) {
-                    name
-                    forks(first: 10) {
-                      nodes {
-                        name
-                        description
-                        stargazerCount
-                        owner {
-                          login
-                          avatarUrl
-                        }
-                      }
-                    }
-                  }
-                }`,
+          repository(owner: $owner, name: $repo) {
+            name
+            forks(first: 10) {
+              nodes {
+                name
+                description
+                stargazerCount
+                owner {
+                  login
+                  avatarUrl
+                }
+              }
+            }
+          }
+        }`,
         variables: { owner, repo }
       },
       {

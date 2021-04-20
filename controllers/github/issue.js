@@ -9,45 +9,45 @@ module.exports = (req, res) => {
       "https://api.github.com/graphql",
       {
         query: `query($owner: String!, $repo: String!, $number: Int!) {
-  repository(owner: $owner, name: $repo) {
-    issue(number: $number) {
-      id
-      title
-      url
-      number
-      closed
-      createdAt
-      comments {
-        totalCount
-      }
-      labels(first: 100) {
-      	edges {
-        	node {
-          	name
-            color
-        	}
-      	}
-    	}
-      repository {
-        name
-        primaryLanguage {
-          name
-          color
-        }
-        owner {
-          login
-        }
-      }
-      author {
-        ... on User {
-          login
-          url
-          email
-        }
-      }
-    }
-  }
-}`,
+          repository(owner: $owner, name: $repo) {
+            issue(number: $number) {
+              id
+              title
+              url
+              number
+              closed
+              createdAt
+              comments {
+                totalCount
+              }
+              labels(first: 100) {
+                edges {
+                  node {
+                    name
+                    color
+                  }
+                }
+              }
+              repository {
+                name
+                primaryLanguage {
+                  name
+                  color
+                }
+                owner {
+                  login
+                }
+              }
+              author {
+                ... on User {
+                  login
+                  url
+                  email
+                }
+              }
+            }
+          }
+        }`,
         variables: { owner, repo, number }
       },
       {
