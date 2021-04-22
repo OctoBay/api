@@ -1,11 +1,11 @@
-const axios = require('axios');
+const axios = require('axios')
 
 module.exports = (req, res) => {
-  let owner = req.params.owner;
-  let repo = req.params.repo;
+  let owner = req.params.owner
+  let repo = req.params.repo
   axios
     .post(
-      "https://api.github.com/graphql",
+      'https://api.github.com/graphql',
       {
         query: `query($owner: String!, $repo: String!) {
           repository(owner: $owner, name: $repo) {
@@ -23,37 +23,43 @@ module.exports = (req, res) => {
             }
           }
         }`,
-        variables: { owner, repo }
+        variables: { owner, repo },
       },
       {
         headers: {
-          Authorization: req.headers.authorization
-        }
+          Authorization: req.headers.authorization,
+        },
       }
     )
-    .then(data => {
-      const forks = [];
+    .then((data) => {
+      const forks = []
       if (data.data.data.repository) {
-        const requests = [];
-        data.data.data.repository.forks.nodes.forEach(async fork => {
-          requests.push(axios.get(`https://${fork.owner.login}.github.io/${fork.name}`).then(res => {
-            return {
-              username: fork.owner.login,
-              repository: fork.name,
-              logo: fork.owner.avatarUrl,
-              description: fork.description,
-              stars: fork.stargazerCount
-            };
-          }).catch(e => null));
-        });
-        Promise.all(requests).then(forks => {
-          forks = forks.filter(fork => fork);
-          res.json(forks);
-        });
+        const requests = []
+        data.data.data.repository.forks.nodes.forEach(async (fork) => {
+          requests.push(
+            axios
+              .get(`https://${fork.owner.login}.github.io/${fork.name}`)
+              .then((res) => {
+                return {
+                  username: fork.owner.login,
+                  repository: fork.name,
+                  logo: fork.owner.avatarUrl,
+                  description: fork.description,
+                  stars: fork.stargazerCount,
+                }
+              })
+              .catch((e) => null)
+          )
+        })
+        Promise.all(requests).then((forks) => {
+          forks = forks.filter((fork) => fork)
+          res.json(forks)
+        })
       } else {
-        res.status(500).json({ error: 'Repository not found.' });
+        res.status(500).json({ error: 'Repository not found.' })
       }
-    }).catch(e => {
-      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)));
-    });
-};
+    })
+    .catch((e) => {
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
+    })
+}

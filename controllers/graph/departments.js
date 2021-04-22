@@ -2,9 +2,8 @@ const axios = require('axios')
 const cache = require('memory-cache')
 
 module.exports = (req, res) => {
-  axios.post(
-    process.env.THEGRAPH_ENDPOINT,
-    {
+  axios
+    .post(process.env.THEGRAPH_ENDPOINT, {
       query: `{
         governanceDepartments(first: 100) {
           id
@@ -46,15 +45,16 @@ module.exports = (req, res) => {
             }
           }
         }
-      }`
-    }
-  ).then(data => {
-    if (data.data.errors) {
-      res.status(404).json(data.data.errors)
-    } else {
-      res.json(data.data.data.governanceDepartments)
-    }
-  }).catch((e) => {
-    res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
-  })
+      }`,
+    })
+    .then((data) => {
+      if (data.data.errors) {
+        res.status(404).json(data.data.errors)
+      } else {
+        res.json(data.data.data.governanceDepartments)
+      }
+    })
+    .catch((e) => {
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
+    })
 }
