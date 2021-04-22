@@ -18,6 +18,46 @@
 
   ### Get an access token for a GitHub user.
 
+  #### Option 1: Create a GitHub OAuth2 App and Get a token using the frontend
+  
+  ##### Step 1: Create OAuth App
+  Our frontend and some backend calls (like is-repo-admin) expects an GitHub OAuth2 token.
+
+  Let's get you a token.
+
+  First create an OAuth2 Github app. Go to <b>Settings -> Developer settings -> OAuth Apps</b>
+
+  Set callback url to:
+
+  Application Name: anything
+  Homepage url: could be anything, but just do `https://octobay.uber.space/`
+  Authorization callback URL: MUST be `http://localhost:3000/auth/github`
+
+  Create the application.
+
+  In `.env`, set the following to your OAuth2 apps information:
+
+  ```
+  GITHUB_CLIENT_ID=<YOUR_GITHUB_CLIENT_ID>
+  GITHUB_CLIENT_SECRET=<YOUR_GITHUB_CLIENT_SECRET>
+  ```
+
+  ##### Step 2: Login from frontend
+
+  Set the following parameters in the app frontend
+  
+  ```
+  API_URL=http://localhost:3001
+  GITHUB_CLIENT_ID=<THE CLIENT ID OF THE OUATH2 APP YOU CREATED IN STEP 1>
+  ```
+
+  Boot the api and app, and follow the login on the frontend.
+
+  You should now have an OAuth2 token beginning with `gho_` in you Applications -> Local Storage.
+
+  Use this with a header of `Authorization : Bearer <YOUR TOKEN>` to make authenticated API calls.
+
+  #### Option 2: Intercept Authorization Code
   The auth code from `https://github.com/login/oauth/authorize` can be exchanged for an access token here.
 
   ```http
