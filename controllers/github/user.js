@@ -1,10 +1,10 @@
-const axios = require('axios');
+const axios = require('axios')
 
 module.exports = (req, res) => {
-  let username = req.params.username;
+  let username = req.params.username
   axios
     .post(
-      "https://api.github.com/graphql",
+      'https://api.github.com/graphql',
       {
         query: `query($username:String!) {
           user(login: $username) {
@@ -24,22 +24,23 @@ module.exports = (req, res) => {
           }
         }`,
         variables: {
-          username
-        }
+          username,
+        },
       },
       {
         headers: {
-          Authorization: "bearer " + process.env.GITHUB_PERSONAL_ACCESS_TOKEN
-        }
+          Authorization: 'bearer ' + process.env.GITHUB_PERSONAL_ACCESS_TOKEN,
+        },
       }
     )
-    .then(data => {
+    .then((data) => {
       if (data.data.errors) {
-        res.status(404).json(data.data.errors);
+        res.status(404).json(data.data.errors)
       } else {
-        res.json(data.data.data.user);
+        res.json(data.data.data.user)
       }
-    }).catch(e => {
-      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)));
-    });
-};
+    })
+    .catch((e) => {
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
+    })
+}

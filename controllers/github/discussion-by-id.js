@@ -1,10 +1,10 @@
-const axios = require('axios');
+const axios = require('axios')
 
 module.exports = (req, res) => {
-  let discussionId = req.params.discussionId;
+  let discussionId = req.params.discussionId
   axios
     .post(
-      "https://api.github.com/graphql",
+      'https://api.github.com/graphql',
       {
         query: `query($discussionId: ID!) {
           node(id: $discussionId) {
@@ -15,22 +15,23 @@ module.exports = (req, res) => {
             }
           }
         }`,
-        variables: { discussionId }
+        variables: { discussionId },
       },
       {
         headers: {
-          Authorization: "bearer " + process.env.GITHUB_PERSONAL_ACCESS_TOKEN,
-          'GraphQL-Features': 'discussions_api'
-        }
+          Authorization: 'bearer ' + process.env.GITHUB_PERSONAL_ACCESS_TOKEN,
+          'GraphQL-Features': 'discussions_api',
+        },
       }
     )
-    .then(data => {
+    .then((data) => {
       if (data.data.errors) {
-        res.status(404).json(data.data.errors);
+        res.status(404).json(data.data.errors)
       } else {
-        res.json(data.data.data.node);
+        res.json(data.data.data.node)
       }
-    }).catch(e => {
-      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)));
-    });
-};
+    })
+    .catch((e) => {
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
+    })
+}

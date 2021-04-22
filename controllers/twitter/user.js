@@ -8,7 +8,7 @@ const twApp = new Twitter({
   consumer_key: process.env.TWITTER_API_KEY,
   consumer_secret: process.env.TWITTER_API_SECRET,
   access_token_key: process.env.TWITTER_APP_ACCESS_TOKEN,
-  access_token_secret: process.env.TWITTER_APP_SECRET
+  access_token_secret: process.env.TWITTER_APP_SECRET,
 })
 
 module.exports = (req, res) => {
@@ -18,13 +18,16 @@ module.exports = (req, res) => {
   if (user) {
     res.json(user)
   } else {
-    twApp.get('users/show', {
-      user_id: accountId
-    }).then(user => {
-      cache.put('twitter-followers-' + accountId, user, 5 * 60 * 1000)
-      res.json(user)
-    }).catch(error => {
-      res.status(500).json(error)
-    })
+    twApp
+      .get('users/show', {
+        user_id: accountId,
+      })
+      .then((user) => {
+        cache.put('twitter-followers-' + accountId, user, 5 * 60 * 1000)
+        res.json(user)
+      })
+      .catch((error) => {
+        res.status(500).json(error)
+      })
   }
-};
+}
