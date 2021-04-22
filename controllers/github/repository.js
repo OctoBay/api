@@ -1,35 +1,36 @@
-const axios = require('axios')
+const axios = require('axios');
 
 module.exports = (req, res) => {
-  let owner = req.params.owner
-  let repo = req.params.repo
+  let owner = req.params.owner;
+  let repo = req.params.repo;
   axios
     .post(
       "https://api.github.com/graphql",
       {
-        query: `query {
-  repository(owner: "${owner}", name:"${repo}") {
-    id
-    name
-    url
-    homepageUrl
-    createdAt
-    description
-    collaborators {
-      totalCount
-    }
-    stargazerCount
-    forkCount
-    primaryLanguage {
-      name
-      color
-    }
-    owner {
-      login
-      url
-    }
-  }
-}`
+        query: `query($owner: String!, $repo: String!) {
+          repository(owner: $owner, name:$repo) {
+            id
+            name
+            url
+            homepageUrl
+            createdAt
+            description
+            collaborators {
+              totalCount
+            }
+            stargazerCount
+            forkCount
+            primaryLanguage {
+              name
+              color
+            }
+            owner {
+              login
+              url
+            }
+          }
+        }`,
+        variables: { owner, repo }
       },
       {
         headers: {
@@ -39,11 +40,11 @@ module.exports = (req, res) => {
     )
     .then(data => {
       if (data.data.errors) {
-        res.status(404).json(data.data.errors)
+        res.status(404).json(data.data.errors);
       } else {
-        res.json(data.data.data.repository)
+        res.json(data.data.data.repository);
       }
     }).catch(e => {
-      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
-    })
-}
+      res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)));
+    });
+};
