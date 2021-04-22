@@ -22,6 +22,7 @@ const appAuth = (req, res, next) => {
 
 app.post('/github/access-token', require('./controllers/github/access-token'))
 app.get('/github/user/:username', require('./controllers/github/user'))
+app.get('/github/user-by-id/:githubUserId', require('./controllers/github/user-by-id'))
 app.get('/github/repository/:owner/:repo', require('./controllers/github/repository'))
 app.get('/github/organization/:name', require('./controllers/github/organization'))
 app.get('/github/issue/:owner/:repo/:number', require('./controllers/github/issue'))
@@ -41,5 +42,7 @@ app.get('/graph/issues', require('./controllers/graph/issues'))
 app.get('/graph/oracles', require('./controllers/graph/oracles'))
 app.get('/graph/departments', require('./controllers/graph/departments'))
 app.get('/graph/user/:githubUserId', require('./controllers/graph/user'))
+app.get('/graph/user-by-address/:ethAddress', require('./controllers/graph/user-by-address'))
+app.get('/graph/outgoing-user-deposits/:ethAddress', require('./controllers/graph/outgoing-user-deposits'))
 
 module.exports = app

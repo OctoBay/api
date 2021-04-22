@@ -1,32 +1,28 @@
 const axios = require('axios')
 
 module.exports = (req, res) => {
-  const githubUserId = req.params.githubUserId
+  const ethAddress = req.params.ethAddress
   axios.post(
     process.env.THEGRAPH_ENDPOINT,
     {
-      query: `query($githubUserId:String!) {
-        user(id: $githubUserId) {
-          addresses {
-            name
-            address
-          }
-          deposits {
+      query: `query($ethAddress:ID!) {
+        userAddress(id: $ethAddress) {
+          user {
             id
-            from
-            amount
           }
         }
       }`,
       variables: {
-        githubUserId
+        ethAddress
       },
     }
   ).then(data => {
     if (data.data.errors) {
       res.status(404).json(data.data.errors)
+    } else if (data.data.data.userAddress) {
+      res.json(data.data.data.userAddress.user.id)
     } else {
-      res.json(data.data.data.user)
+      res.status(404).json('Not found.')
     }
   }).catch((e) => {
     res.status(500).send(JSON.stringify(e, Object.getOwnPropertyNames(e)))
