@@ -16,9 +16,9 @@ module.exports = (req, res) => {
       .post(
         "https://api.github.com/graphql",
         {
-          query: `query {
-            repository(owner: "${repoOwner}", name:"${repoName}") {
-              collaborators(query: "${user}") {
+          query: `query($repoOwner: String!, $repoName: String!, $user: String!) {
+            repository(owner: $repoOwner, name: $repoName) {
+              collaborators(query: $user) {
                 edges {
                   permission
                 }
@@ -27,7 +27,8 @@ module.exports = (req, res) => {
                 }
               }
             }
-          }`
+          }`,
+          variables: { repoOwner, repoName, user }
         },
         {
           headers: {
