@@ -45,5 +45,6 @@ app.get('/graph/departments', require('./controllers/graph/departments'))
 app.get('/graph/user/:githubUserId', require('./controllers/graph/user'))
 app.get('/graph/user-by-address/:ethAddress', require('./controllers/graph/user-by-address'))
 app.get('/graph/outgoing-user-deposits/:ethAddress', require('./controllers/graph/outgoing-user-deposits'))
+app.get('/graph/permission-nfts-by-owner/:ownerAddress', require('./controllers/graph/permission-nfts-by-owner'))
 
 module.exports = app
