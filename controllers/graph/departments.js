@@ -7,6 +7,7 @@ module.exports = (req, res) => {
       query: `{
         governanceDepartments(first: 100) {
           id
+          creator
           projectId
           tokenAddress
           name
