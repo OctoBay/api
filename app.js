@@ -31,7 +31,6 @@ app.get('/github/discussion/:owner/:repo/:number', require('./controllers/github
 app.get('/github/discussion-by-id/:discussionId', require('./controllers/github/discussion-by-id'))
 app.get('/github/pullrequest/:owner/:repo/:number', require('./controllers/github/pullrequest'))
 app.get('/github/pullrequest-by-id/:prId', require('./controllers/github/pullrequest-by-id'))
-app.get('/github/forks/:owner/:repo', appAuth, require('./controllers/github/forks'))
 app.get('/github/is-repo-admin/:user/:repoOwner/:repoName', userAuth, require('./controllers/github/is-repo-admin'))
 app.get('/github/linked-pullrequests/:issueId', require('./controllers/github/linked-pullrequests'))
 app.get('/github/can-withdraw-from-issue/:githubUserId/:issueId', require('./controllers/github/can-withdraw-from-issue'))
