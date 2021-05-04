@@ -1,5 +1,7 @@
 # OctoBay API
 
+![OctoBay API Dev](https://github.com/octobay/api/actions/workflows/node.js.yml/badge.svg)
+
 ## GitHub
 
 <details>
