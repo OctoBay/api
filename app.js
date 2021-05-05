@@ -37,6 +37,7 @@ app.get('/github/can-withdraw-from-issue/:githubUserId/:issueId', require('./con
 
 app.get('/twitter/user/:accountId', require('./controllers/twitter/user'))
 
+app.get('/graph/config/:octobayAddress', require('./controllers/graph/config'))
 app.get('/graph/issues', require('./controllers/graph/issues'))
 app.get('/graph/issue/:issueId', require('./controllers/graph/issue'))
 app.get('/graph/oracles', require('./controllers/graph/oracles'))
