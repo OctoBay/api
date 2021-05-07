@@ -15,11 +15,6 @@ const userAuth = (req, res, next) => {
   }
 }
 
-const appAuth = (req, res, next) => {
-  req.headers.authorization = 'bearer ' + process.env.GITHUB_PERSONAL_ACCESS_TOKEN
-  next()
-}
-
 app.post('/github/access-token', require('./controllers/github/access-token'))
 app.get('/github/user-by-username/:username', require('./controllers/github/user-by-username'))
 app.get('/github/user-by-id/:githubUserId', require('./controllers/github/user-by-id'))
