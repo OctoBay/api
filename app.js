@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors())
 
 const userAuth = (req, res, next) => {
-  if (req.headers.authorization && req.headers.authorization.startsWith('bearer')) {
+  if (req.headers.authorization && req.headers.authorization.toLowerCase().startsWith('bearer')) {
     next()
   } else {
     res.status(401).send('Unauthorized: No access token provided.')
