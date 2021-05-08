@@ -17,6 +17,8 @@ module.exports = (req, res) => {
             discussion(number: $number) {
               id
               title
+              url
+              createdAt
             }
           }
         }`,

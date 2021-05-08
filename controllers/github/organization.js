@@ -15,6 +15,13 @@ module.exports = (req, res) => {
               websiteUrl
               createdAt
               description
+              twitterUsername
+              membersWithRole {
+                totalCount
+              }
+              repositories {
+                totalCount
+              }
             }
           }`,
         variables: { name },
