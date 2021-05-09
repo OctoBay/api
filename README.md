@@ -2,6 +2,14 @@
 
 ![OctoBay API Dev](https://github.com/octobay/api/actions/workflows/node.js.yml/badge.svg)
 
+## Run locally
+
+```bash
+git clone https://github.com/Octobay/api octobay-api && cd octobay-api && yarn && cp .env.sample .env
+```
+
+Add your GitHub OAuth app credentials and a personal access token to the `.env` file and run `yarn start`.
+
 ## GitHub
 
 <details>
