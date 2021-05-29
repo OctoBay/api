@@ -13,6 +13,6 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.UBERSPACE_HOST }}
-          username: ${{ secrets.UBERSPACE_USERNAME }}
+          username: ${{ secrets.UBERSPACE_USER }}
           key: ${{ secrets.UBERSPACE_SSH_KEY }}
           script: ~/update-api.sh
