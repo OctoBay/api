@@ -14,16 +14,4 @@ describe('GitHub', () => {
     expect(res.statusCode).toBe(200)
     expect(res.body).toBe(false)
   })
-
-  it('User is admin.', async () => {
-    const res = await request(app).get(`/github/is-repo-admin/${testUser}/${testRepoOwner}/${testRepoName}`)
-    expect(res.statusCode).toBe(200)
-    expect(res.body).toBe(true)
-  })
-
-  it("User is admin can't be checked.", async () => {
-    const res = await request(app).get(`/github/is-repo-admin/${testUser}/${otherTestRepoOwner}/${otherTestRepoName}`)
-    expect(res.statusCode).toBe(404)
-    expect(res.body).toBe(false)
-  })
 })

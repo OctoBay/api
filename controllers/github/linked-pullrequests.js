@@ -1,6 +1,5 @@
 const axios = require('axios')
 const cache = require('memory-cache')
-const { graphqlClient } = require('./graphql-client')
 
 const getPullRequestConnectEvents = (issueId, after, items = []) => {
   return axios
