@@ -1,0 +1,18 @@
+name: Update API
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  update-uberspace:
+    name: Update Uberspace
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing update command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.UBERSPACE_HOST }}
+          username: ${{ secrets.UBERSPACE_USERNAME }}
+          key: ${{ secrets.UBERSPACE_SSH_KEY }}
+          script: ~/update-api.sh
